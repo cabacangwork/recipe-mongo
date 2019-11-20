@@ -10,6 +10,8 @@ const AddRecipe = () => {
     const [ingredients, setIngredients] = useState(['']);
     const [procedures, setProcedures] = useState(['']);
     const [dish, setDish] = useState('not-specified');
+    const [selectedFile, setSelectedFile] = useState(); // file info
+    const [previewImg, setPreviewImg] = useState(); // base64 img
 
     return (
         <div className="form-add card container">
@@ -67,12 +69,30 @@ const AddRecipe = () => {
                 </div>
                 <div className="form-group">
                     <label>Image Upload</label>
-                    <input type="file" className="form-control-file" accept="image/*"/>
+                    <input type="file" className="form-control-file" accept="image/*" onChange={onFileChange} />
+                    {previewImg && <img src={previewImg} width="200" />}
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
     );
+
+    function onFileChange (event) {
+        if(event.target.files && event.target.files[0]) {
+            setSelectedFile(event.target.files[0]);
+    
+            // use FileReader api constructor from HTML5
+            let reader = new FileReader();
+    
+            // listen
+            reader.onloadend = () => {
+                setPreviewImg(reader.result);
+            };
+    
+            // start reading as URL
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    };
     
     function onOption(e) {
         setDish(e.target.value)
@@ -125,16 +145,30 @@ const AddRecipe = () => {
     function onSubmit(e) {
         e.preventDefault();
 
-        const newRecipe = {
-            id: Date.now(),
-            title, 
-            description, 
-            ingredients, 
-            procedures, 
-            dish,
-            date: moment().format('LLL')
-        }
-        axios.post('http://localhost:5000/recipes/add', newRecipe)
+        // const newRecipe = {
+        //     id: Date.now(),
+        //     title, 
+        //     description, 
+        //     ingredients, 
+        //     procedures, 
+        //     dish,
+        //     date: moment().format('LL')
+        // };
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('ingredients', ingredients);
+        formData.append('procedures', procedures);
+        formData.append('dish', dish);
+        formData.append('date', moment().format('LL'));
+        formData.append('imgUrl', selectedFile);
+
+        axios.post('http://localhost:5000/recipes/add', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
             .then(res => console.log(res.data))
             .then(res => (
                 setTitle(''),

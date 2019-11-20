@@ -3,11 +3,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
-  id: { 
-    type: Number, 
-    required: true, 
-    unique: true,
-  },
   title: { 
     type: String, 
     required: true 
@@ -29,9 +24,13 @@ const recipeSchema = new Schema({
     required: true 
   },
   date: { 
-    type: Date, 
+    type: String, 
     required: true 
-  }
+  },
+  imgUrl: {
+    type: String,
+    required: true,
+  },
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

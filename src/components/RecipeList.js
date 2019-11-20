@@ -24,9 +24,7 @@ const RecipeList = () => {
         return () => {
             mounted = false;
           };
-        }
-
-    );
+    }, []);
 
 
 
