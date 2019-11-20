@@ -1,0 +1,217 @@
+@font-face {
+    font-family: 'Champagne';
+    src: local('Champagne'), url('./fonts/Champagne\ &\ Limousines\ Bold.ttf') format('truetype');
+}
+
+body {
+    font-family: Champagne;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: Champagne;
+    color: #005073;
+}
+
+.home {
+    max-width: 100%;
+    margin: 150px 0;
+    .title {
+        font-family: Champagne;
+        text-transform: uppercase;
+        font-weight: normal;
+        font-size: 60px;
+        text-align: center;
+    }
+}
+
+.navbar {
+    background: #107dac;
+}
+
+nav {
+    a {
+        font-family: Champagne;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: normal;
+        &:hover {
+            color: #404D6B;
+        }
+        &.active {
+            color: #404D6B;
+            border: none;
+            box-sizing: border-box;
+        }
+        &.navbar-brand {
+            margin: 0;
+            padding: 0 5px;
+            &.active {
+                background-color: #005073;
+                box-shadow: 3px 3px #000;
+            }
+        }
+    }
+}
+
+.card-title {
+    color: #fff;
+}
+
+.form-add {
+    .add-tab {
+        display: flex;
+        align-items: center;
+        .add-input {
+            width: 100%;
+            margin-right: 10px;
+        }
+        & + .add-tab {
+            margin-top: 10px;
+        }
+    }
+    label {
+        color: #fff;
+    }
+    .btn-lg {
+        display: flex;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+
+.form-add, .recipe-list {
+    max-width: 70%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #045E85;
+    border: 1px solid gray;
+    .btn-remove {
+        background-color: #b5444f;
+        border-color: #b5444f;
+        color: #fff;
+    }
+}
+
+.recipe-list {
+    background-color: transparent;
+    border: none;
+    .list-group {
+        margin-top: 20px;
+    }
+    a {
+        display: block;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    ul li {
+        background-color: #f8f9fa;
+    }
+}
+
+.header-part {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.select-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+        margin-left: 8px;
+    }
+}
+
+.dish-type {
+    text-transform: capitalize;
+}
+
+.ingredients-info, .procedures-info {
+    margin-bottom: 15px;
+}
+
+.procedures-info {
+    li + li {
+        margin-top: 10px;
+    }
+}
+
+.recipe.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    h2 {
+        margin-bottom: 15px;
+    }
+    hr {
+        border-top: 1px solid #721c24;
+    }
+    .footer-buttons {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        .middle {
+            button {
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.empty-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    h2 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+
+.edit {
+    .label-caption {
+        color: lightgray
+    }
+    .form-group {
+        padding: 1rem 0;
+        border-bottom: 1px solid #b7aaaa;
+        margin-bottom: 0;
+    }
+    .multiple {
+        ul {
+            display: flex;
+            justify-content: space-between;
+            flex-flow: row wrap;
+            li {
+                flex-basis: 45%;
+            }
+        }
+        label {
+            width: 100%;
+        }
+    }
+    .btn.btn-primary.btn-lg {
+        margin-top: 20px;
+    }
+    .label-title {
+        font-size: 18px;
+    }
+}
+
+.recipe.container.hide {
+    .details {
+        display: none;
+    }
+    .cancel-button {
+        button {
+            display: flex;
+            margin: 0 auto;
+        }
+    }
+}
+
+.form-add.card.container.edit {
+    max-width: 90%;
+}
