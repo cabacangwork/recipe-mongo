@@ -15,6 +15,7 @@ const AddRecipe = () => {
 
     return (
         <div className="form-add card container">
+            <h2 className="card-title">Add Recipe</h2>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>Title</label><br/>
@@ -67,12 +68,14 @@ const AddRecipe = () => {
                     ))}
                     <br/><button onClick={addProcedure} className="btn btn-secondary btn-add">Add Procedure</button>
                 </div>
-                <div className="form-group">
-                    <label>Image Upload</label>
-                    <input type="file" className="form-control-file" accept="image/*" onChange={onFileChange} />
-                    {previewImg && <img src={previewImg} width="200" />}
+                <div className="form-group img-up"> 
+                    {previewImg && <img src={previewImg} className="img-preview" />}
+                    <div className="image-label">
+                        <label>Image Upload</label>
+                        <input type="file" name="imgUrl" className="form-control-file" accept="image/*" onChange={onFileChange} />
+                    </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary btn-lg">Submit</button>
             </form>
         </div>
     );
@@ -80,15 +83,12 @@ const AddRecipe = () => {
     function onFileChange (event) {
         if(event.target.files && event.target.files[0]) {
             setSelectedFile(event.target.files[0]);
-    
             // use FileReader api constructor from HTML5
             let reader = new FileReader();
-    
             // listen
             reader.onloadend = () => {
                 setPreviewImg(reader.result);
             };
-    
             // start reading as URL
             reader.readAsDataURL(event.target.files[0]);
         }
@@ -145,21 +145,11 @@ const AddRecipe = () => {
     function onSubmit(e) {
         e.preventDefault();
 
-        // const newRecipe = {
-        //     id: Date.now(),
-        //     title, 
-        //     description, 
-        //     ingredients, 
-        //     procedures, 
-        //     dish,
-        //     date: moment().format('LL')
-        // };
-
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
-        formData.append('ingredients', ingredients);
-        formData.append('procedures', procedures);
+        formData.append('ingredients', JSON.stringify(ingredients));
+        formData.append('procedures', JSON.stringify(procedures));
         formData.append('dish', dish);
         formData.append('date', moment().format('LL'));
         formData.append('imgUrl', selectedFile);
@@ -170,12 +160,19 @@ const AddRecipe = () => {
             }
         })
             .then(res => console.log(res.data))
-            .then(res => (
+            .then(() => (
                 setTitle(''),
                 setDescription(''),
                 setIngredients(['']),
                 setProcedures(['']),
-                setDish('not-specified')
+                setDish('not-specified'),
+                setPreviewImg(''),
+                setSelectedFile({})
+            ))
+            .then( () => (
+                setTimeout(() => {
+                    window.location = '/recipes'
+                }, 500)
             )); 
     }
 

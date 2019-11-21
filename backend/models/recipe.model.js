@@ -30,7 +30,7 @@ const recipeSchema = new Schema({
   imgUrl: {
     type: String,
     required: true,
-  },
+  }
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

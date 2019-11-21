@@ -10,11 +10,7 @@ const RecipeList = () => {
     const [filter, setFilter] = useState('all');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/recipes', {
-            params: {
-              dish: 'chicken'
-            }
-          })
+        axios.get('http://localhost:5000/recipes')
             .then(response => {
                 if ((response.data).length === 0){
                     setLoad(false);

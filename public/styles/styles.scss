@@ -215,3 +215,42 @@ nav {
 .form-add.card.container.edit {
     max-width: 90%;
 }
+
+.form-add.card.container.edit-page {
+    background-color: #fff;
+    max-width: 85%;
+    margin-top: 0;
+    border: 0;
+    label {
+        color: #000;
+    }
+    .form-control {
+        border: 1px solid #6d747b;
+    }
+}
+
+.img-up {
+    display: flex;
+    .image-label {
+        margin: auto 0;
+    }
+    .img-preview {
+        max-width: 250px;
+        margin-right: 20px;
+    }
+}
+
+.recipe {
+    .food-img img {
+        float: right;
+        max-height: 250px;
+        margin-left: 40px;
+    }
+}
+
+.edit-page {
+    .footer-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+}

@@ -4,10 +4,10 @@ const router = require('express').Router();
 
 /**
  * FOR UPLOAD
- * adi man tutorial - https://www.positronx.io/react-file-upload-tutorial-with-node-express-and-multer/
+ * https://www.positronx.io/react-file-upload-tutorial-with-node-express-and-multer/
  */
 
-const DIR = './public/'; // temporary la ini na storage kuntaloy (backend > public)
+const DIR = './public/'; 
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
 
 var upload = multer({
     storage: storage,
+    limits:{fileSize: 1000000},         //1Mb Max
     fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
             cb(null, true);
@@ -37,11 +38,18 @@ var upload = multer({
 
 let Recipe = require('../models/recipe.model');
 
+// router.route('/').get((req, res) => {
+//   Recipe.find()
+//     .then(recipes => res.json(recipes))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
+
 router.route('/').get((req, res) => {
-  Recipe.find()
-    .then(recipes => res.json(recipes))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+    Recipe.find({dish: 'chicken'})
+      .then(recipes => res.json(recipes))
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
+
 
 // it upload.single('imgUrl') - middleware hit '/users/add' na route
 router.post('/add', upload.single('imgUrl'), (req, res) => {
@@ -85,9 +93,10 @@ router.route('/update/:id').post((req, res) => {
       recipe.ingredients = req.body.ingredients;
       recipe.procedures = req.body.procedures;
       recipe.date = req.body.date;
+      recipe.imgUrl = url + '/public/' + req.file.filename;
 
       recipe.save()
-        .then(() => res.json('Recipe Added!'))
+        .then(() => res.json('Recipe Updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));
