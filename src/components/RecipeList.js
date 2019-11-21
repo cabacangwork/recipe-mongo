@@ -10,24 +10,17 @@ const RecipeList = () => {
     const [filter, setFilter] = useState('all');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/recipes', {
-            params: {
-              dish: 'chicken'
-            }
-          })
+        axios.get('http://localhost:5000/recipes/?filter='+filter)
             .then(response => {
+                setLoad(false);
                 if ((response.data).length === 0){
-                    setLoad(false);
                     setNoData(true);
                 }
                 else {
-                    setLoad(false);
                     setRecipes(response.data);
                 }
             })
-            .catch((error) => {
-                console.log(error);
-            })
+            .catch((error) => {console.log(error);})
     }, []);
 
         return (
@@ -49,14 +42,14 @@ const RecipeList = () => {
                 
                 </div>
                 <ul className="list-group">
-                    {load ? <span>Loading...</span> : 
+                    {load ? <span className="loading">Loading...</span> : 
                         ( 
                             noData ?
-                                <h3>No Data in List</h3>
+                                <h3 className="no-data">-- No Data in List --</h3>
                                 :
                                 recipes.map((recipe, index) => 
-                                    <li className="list-group-item list-group-item-secondary" key={index}>
-                                        <Link to={`/recipes/${recipe._id}`}>{recipe.title}</Link>
+                                    <li className="list-group-item list-group-item-secondary title-link" key={index}>
+                                        <Link to={`/recipes/view/${recipe._id}`}>{recipe.title}</Link>
                                     </li>
                                 )
                         )
@@ -67,6 +60,22 @@ const RecipeList = () => {
 
         function onFilter(filterVal) {
             setFilter(filterVal);
+            setLoad(true);
+                axios.get('http://localhost:5000/recipes/?filter='+filterVal)
+                    .then(response => {
+                        setLoad(false);
+                        if ((response.data).length === 0){
+                            setNoData(true);
+                        }
+                        else {
+                            setNoData(false);
+                            setRecipes(response.data);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            
         }
 
 }

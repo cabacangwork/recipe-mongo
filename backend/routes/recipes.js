@@ -20,8 +20,7 @@ const storage = multer.diskStorage({
 });
 
 var upload = multer({
-    storage: storage,
-    limits:{fileSize: 1000000},         //1Mb Max
+    storage: storage,        //1Mb Max
     fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
             cb(null, true);
@@ -44,10 +43,11 @@ let Recipe = require('../models/recipe.model');
 //     .catch(err => res.status(400).json('Error: ' + err));
 // });
 
-router.route('/').get((req, res) => {
-    Recipe.find({dish: 'chicken'})
-      .then(recipes => res.json(recipes))
-      .catch(err => res.status(400).json('Error: ' + err));
+router.route('/:filter?').get((req, res) => {
+    const filterVal = req.query.filter;
+    (filterVal === 'all')? 
+      ( Recipe.find().then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))):
+      Recipe.find({dish: req.query.filter}).then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))
   });
 
 
@@ -64,15 +64,17 @@ router.post('/add', upload.single('imgUrl'), (req, res) => {
   const imgUrl = url + '/public/' + req.file.filename;
 
   const newRecipe = new Recipe({
-    title, description, dish, ingredients, procedures, date, imgUrl,
+    title, description, dish, ingredients, procedures, date, imgUrl
   });
 
   newRecipe.save()
     .then(() => res.json('Recipe Added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .catch(err => {
+      return res.status(400).json('Error: ' + err)
+    });
 });
 
-router.route('/:id').get((req, res) => {
+router.route('/view/:id').get((req, res) => {
   Recipe.findById(req.params.id)
     .then(recipe => res.json(recipe))
     .catch(err => res.status(400).json('Error: ' + err));
@@ -84,7 +86,9 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:id').post((req, res) => {
+router.post('/update/:id', upload.single('imgUrl'), (req, res) => {
+  const url = req.protocol + '://' + req.get('host'); // get current server url
+
   Recipe.findById(req.params.id)
     .then(recipe => {
       recipe.title = req.body.title;
@@ -93,13 +97,21 @@ router.route('/update/:id').post((req, res) => {
       recipe.ingredients = req.body.ingredients;
       recipe.procedures = req.body.procedures;
       recipe.date = req.body.date;
-      recipe.imgUrl = url + '/public/' + req.file.filename;
+
+      // only update if myda imgUrl
+      if (req.file && req.file.filename) recipe.imgUrl = url + '/public/' + req.file.filename;
 
       recipe.save()
         .then(() => res.json('Recipe Updated!'))
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => {
+          console.log('update failed', err);
+          return res.status(400).json('Error: ' + err);
+        });
     })
-    .catch(err => res.status(400).json('Error: ' + err));
+    .catch(err => {
+      console.log('update find error', err);
+      return res.status(400).json('Error: ' + err);
+    });
 });
 
 module.exports = router;

@@ -15,15 +15,16 @@ const EditRecipe = (props) => {
     const [previewImg, setPreviewImg] = useState(); // base64 img
 
     useEffect(() => {
-        axios.get('http://localhost:5000/recipes/'+props.match.params.id)
+        axios.get('http://localhost:5000/recipes/view/'+props.match.params.id)
             .then(response => {
+                console.log(response);
                 setId(response.data._id)
                 setTitle(response.data.title)
                 setDescription(response.data.description)
-                setDish(response.data.dish),
-                setPreviewImg(response.data.imgUrl)
-                setIngredients(JSON.parse(response.data.ingredients))
-                setProcedures(JSON.parse(response.data.procedures))
+                setDish(response.data.dish);
+                setPreviewImg(response.data.imgUrl);
+                setIngredients(JSON.parse(response.data.ingredients));
+                setProcedures(JSON.parse(response.data.procedures));
             })
             .catch((error) => {
                 console.log(error)
@@ -157,17 +158,17 @@ const EditRecipe = (props) => {
         }
     }
     
-    function onSubmit(e) {
-        e.preventDefault();
-        const edited = {
-            title,
-            description,
-            ingredients,
-            procedures,
-            dish
-        }
-        console.log(edited)
-    }
+    // function onSubmit(e) {
+    //     e.preventDefault();
+    //     const edited = {
+    //         title,
+    //         description,
+    //         ingredients,
+    //         procedures,
+    //         dish
+    //     }
+    //     console.log(edited)
+    // }
 
     function onSubmit(e) {
         e.preventDefault();
@@ -179,7 +180,8 @@ const EditRecipe = (props) => {
         formData.append('procedures', JSON.stringify(procedures));
         formData.append('dish', dish);
         formData.append('date', moment().format('LL'));
-        formData.append('imgUrl', selectedFile);
+        
+        if (selectedFile) formData.append('imgUrl', selectedFile);
 
         axios.post('http://localhost:5000/recipes/update/'+props.match.params.id, formData, {
             headers: {

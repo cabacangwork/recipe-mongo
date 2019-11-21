@@ -11,7 +11,7 @@ const RecipeDetails = (props) => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/recipes/'+props.match.params.id)
+        axios.get('http://localhost:5000/recipes/view/'+props.match.params.id)
             .then(response => {
                 if ((response.data) == null) {
                     setLoad(false);
