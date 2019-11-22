@@ -2,10 +2,8 @@ const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 const router = require('express').Router();
 
-/**
- * FOR UPLOAD
- * https://www.positronx.io/react-file-upload-tutorial-with-node-express-and-multer/
- */
+
+// For Image Upload (using Multer)
 
 const DIR = './public/'; 
 
@@ -31,17 +29,11 @@ var upload = multer({
     }
 });
 
-/**
- * END FOR UPLOAD
- */
+
+// END FOR UPLOAD
+
 
 let Recipe = require('../models/recipe.model');
-
-// router.route('/').get((req, res) => {
-//   Recipe.find()
-//     .then(recipes => res.json(recipes))
-//     .catch(err => res.status(400).json('Error: ' + err));
-// });
 
 router.route('/:filter?').get((req, res) => {
     const filterVal = req.query.filter;
@@ -51,10 +43,8 @@ router.route('/:filter?').get((req, res) => {
   });
 
 
-// it upload.single('imgUrl') - middleware hit '/users/add' na route
 router.post('/add', upload.single('imgUrl'), (req, res) => {
-  const url = req.protocol + '://' + req.get('host'); // get current server url
-
+  const url = req.protocol + '://' + req.get('host'); 
   const title = req.body.title;
   const description = req.body.description;
   const dish = req.body.dish;
@@ -87,8 +77,7 @@ router.route('/:id').delete((req, res) => {
 });
 
 router.post('/update/:id', upload.single('imgUrl'), (req, res) => {
-  const url = req.protocol + '://' + req.get('host'); // get current server url
-
+  const url = req.protocol + '://' + req.get('host');
   Recipe.findById(req.params.id)
     .then(recipe => {
       recipe.title = req.body.title;
@@ -98,7 +87,6 @@ router.post('/update/:id', upload.single('imgUrl'), (req, res) => {
       recipe.procedures = req.body.procedures;
       recipe.date = req.body.date;
 
-      // only update if myda imgUrl
       if (req.file && req.file.filename) recipe.imgUrl = url + '/public/' + req.file.filename;
 
       recipe.save()

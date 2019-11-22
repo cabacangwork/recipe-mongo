@@ -252,9 +252,9 @@ nav {
 }
 
 .edit-page {
-    .footer-buttons {
-        display: flex;
-        justify-content: space-between;
+    padding-top: 0;
+    .title {
+        margin-top: 20px;
     }
 }
 

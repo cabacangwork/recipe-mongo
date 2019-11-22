@@ -9,7 +9,6 @@ const RecipeDetails = (props) => {
     const [load, setLoad] = useState(true);
     const [noData, setNoData] = useState(false); 
 
-
     useEffect(() => {
         axios.get('http://localhost:5000/recipes/view/'+props.match.params.id)
             .then(response => {
@@ -89,13 +88,6 @@ const RecipeDetails = (props) => {
             }
         );
       }
-
-      function onEdit(e, id) {
-        e.preventDefault();
-        console.log(id)
-      }
-
-
 }
 
 export default RecipeDetails

@@ -18,14 +18,14 @@ class App extends Component{
     return (
         <Router>
           <Navbar/><br/>
-        <Switch>
-            <Route exact path="/"component={Home}/>
-            <Route exact path="/recipes/add" component={AddRecipe}/>
-            <Route exact path="/recipes" component={RecipeList} />
-            <Route exact path="/recipes/view/:id" component={RecipeDetails}/>
-            <Route exact path="/recipes/update/:id" component={EditRecipe}/>
-            <Route component={PageNotFound} />
-        </Switch>
+          <Switch>
+              <Route exact path="/"component={Home}/>
+              <Route exact path="/recipes/add" component={AddRecipe}/>
+              <Route exact path="/recipes" component={RecipeList} />
+              <Route exact path="/recipes/view/:id" component={RecipeDetails}/>
+              <Route exact path="/recipes/update/:id" component={EditRecipe}/>
+              <Route component={PageNotFound} />
+          </Switch>
         </Router>
     )
   }

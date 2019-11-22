@@ -11,8 +11,8 @@ const EditRecipe = (props) => {
     const [ingredients, setIngredients] = useState(['']);
     const [procedures, setProcedures] = useState(['']);
     const [dish, setDish] = useState('not-specified');
-    const [selectedFile, setSelectedFile] = useState(); // file info
-    const [previewImg, setPreviewImg] = useState(); // base64 img
+    const [selectedFile, setSelectedFile] = useState();
+    const [previewImg, setPreviewImg] = useState();
 
     useEffect(() => {
         axios.get('http://localhost:5000/recipes/view/'+props.match.params.id)
@@ -33,6 +33,7 @@ const EditRecipe = (props) => {
 
     return (
       <div className="form-add card container edit-page">
+        <div className="back-link"><Link to={`/recipes/view/${id}`}>&lt; Back to Recipe Details</Link></div>
         <h2 className="title">Edit Recipe</h2>
         <form onSubmit={onSubmit}>
             <div className="form-group">
@@ -93,10 +94,6 @@ const EditRecipe = (props) => {
             </div>
             <button type="submit" className="btn btn-primary btn-lg">Submit</button>
         </form>
-        <div className="footer-buttons">
-            <div className="left"><Link to={`/recipes/${id}`}>&lt; Back to Recipe Details</Link></div>
-            <div className="right"><Link to="/recipes/add">Recipe List &gt;	</Link></div>                
-        </div>
       </div>  
     );
 
@@ -158,21 +155,8 @@ const EditRecipe = (props) => {
         }
     }
     
-    // function onSubmit(e) {
-    //     e.preventDefault();
-    //     const edited = {
-    //         title,
-    //         description,
-    //         ingredients,
-    //         procedures,
-    //         dish
-    //     }
-    //     console.log(edited)
-    // }
-
     function onSubmit(e) {
         e.preventDefault();
-
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
@@ -186,13 +170,14 @@ const EditRecipe = (props) => {
         axios.post('http://localhost:5000/recipes/update/'+props.match.params.id, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
-            }})
-            .then(res => console.log(res.data))
-            .then( () => (
-                setTimeout(() => {
-                    window.location = '/recipes'
-                }, 500)
-            )); 
+            }
+        })
+        .then(res => console.log(res.data))
+        .then( () => (
+            setTimeout(() => {
+                window.location = '/recipes'
+            }, 500)
+        )); 
     }
 
 }

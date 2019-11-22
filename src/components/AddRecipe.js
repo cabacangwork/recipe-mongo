@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 
-
 const AddRecipe = () => {
 
     const [title, setTitle] = useState('');
@@ -10,8 +9,8 @@ const AddRecipe = () => {
     const [ingredients, setIngredients] = useState(['']);
     const [procedures, setProcedures] = useState(['']);
     const [dish, setDish] = useState('not-specified');
-    const [selectedFile, setSelectedFile] = useState(); // file info
-    const [previewImg, setPreviewImg] = useState(); // base64 img
+    const [selectedFile, setSelectedFile] = useState();
+    const [previewImg, setPreviewImg] = useState(); 
     const [load, setLoad] = useState(false);
 
     return (
@@ -87,13 +86,10 @@ const AddRecipe = () => {
     function onFileChange (event) {
         if(event.target.files && event.target.files[0].size < 5000000) {
             setSelectedFile(event.target.files[0]);
-            // use FileReader api constructor from HTML5
             let reader = new FileReader();
-            // listen
             reader.onloadend = () => {
                 setPreviewImg(reader.result);
             };
-            // start reading as URL
             reader.readAsDataURL(event.target.files[0]);
         }
         else {
@@ -163,16 +159,15 @@ const AddRecipe = () => {
         axios.post('http://localhost:5000/recipes/add', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
-            }})
-            .then( () => (
-                setLoad(true),
-                setTimeout(() => {
-                    window.location = '/recipes'
-                }, 1000)
-            )); 
+            }
+        })
+        .then( () => (
+            setLoad(true),
+            setTimeout(() => {
+                window.location = '/recipes'
+            }, 1000)
+        )); 
     }
-
-
 }
 
 export default AddRecipe;
