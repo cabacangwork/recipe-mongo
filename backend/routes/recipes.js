@@ -44,25 +44,20 @@ router.route('/:filter?').get((req, res) => {
 
 
 router.post('/add', upload.single('imgUrl'), (req, res) => {
-  const url = req.protocol + '://' + req.get('host'); 
-  const title = req.body.title;
-  const description = req.body.description;
-  const dish = req.body.dish;
-  const ingredients = req.body.ingredients;
-  const procedures = req.body.procedures;
-  const date = req.body.date;
-  const editDate = req.body.date;
-  const imgUrl = url + '/public/' + req.file.filename;
+    const url = req.protocol + '://' + req.get('host'); 
+    const { title, description, dish, ingredients, procedures, date } = req.body;
+    const editDate = req.body.date;
+    const imgUrl = url + '/public/' + req.file.filename;
 
-  const newRecipe = new Recipe({
-    title, description, dish, ingredients, procedures, date, imgUrl, editDate
-  });
-
-  newRecipe.save()
-    .then(() => res.json('Recipe Added!'))
-    .catch(err => {
-      return res.status(400).json('Error: ' + err)
+    const newRecipe = new Recipe({
+        title, description, dish, ingredients, procedures, date, imgUrl, editDate
     });
+
+    newRecipe.save()
+        .then(() => res.json('Recipe Added!'))
+        .catch(err => {
+        return res.status(400).json('Error: ' + err)
+        });
 });
 
 router.route('/view/:id').get((req, res) => {
