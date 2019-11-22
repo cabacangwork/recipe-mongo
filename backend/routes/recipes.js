@@ -71,9 +71,15 @@ router.route('/view/:id').get((req, res) => {
 });
 
 router.route('/:id').delete((req, res) => {
-  Recipe.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Recipe deleted.'))
-    .catch(err => res.status(400).json('Error: ' + err));
+    const imgDel = 'public/' + req.body.imgPath
+    var fs = require('fs');
+    fs.unlink(imgDel, (err) => {
+        if (err) throw err;
+        console.log('Image deleted in local folder');
+    })
+    Recipe.findByIdAndDelete(req.params.id)
+        .then(() => res.json('Recipe deleted.'))
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.post('/update/:id', upload.single('imgUrl'), (req, res) => {

@@ -77,7 +77,11 @@ const RecipeDetails = (props) => {
 
     function onDelete(e, id) {
         e.preventDefault();
-        axios.delete('http://localhost:5000/recipes/'+id)
+        axios.delete('http://localhost:5000/recipes/'+id, {
+            data: {
+                imgPath: (recipe.imgUrl).replace('http://localhost:5000/public/','')
+            }
+        })
           .then(response => { 
               console.log(response.data)
                 setLoad(true);
