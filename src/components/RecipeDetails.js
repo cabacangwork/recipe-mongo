@@ -60,7 +60,10 @@ const RecipeDetails = (props) => {
                             </ol>
                         </div>
                         <hr/>
-                        <footer className="blockquote-footer"><cite title="Source Title">Recipe Added on: {recipe.date}</cite></footer>
+                        <div className="date-details">
+                            <footer className="blockquote-footer"><cite title="Source Title">Recipe Added on: {recipe.date}</cite></footer>
+                            <footer className="blockquote-footer"><cite title="Source Title">Last Update: {recipe.editDate}</cite></footer>
+                        </div>
                         <div className="footer-buttons">
                             <div className="left"><Link to="/recipes">&lt; Recipe List</Link></div>
                             <div className="middle">

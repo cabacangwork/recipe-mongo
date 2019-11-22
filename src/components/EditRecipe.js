@@ -163,7 +163,7 @@ const EditRecipe = (props) => {
         formData.append('ingredients', JSON.stringify(ingredients));
         formData.append('procedures', JSON.stringify(procedures));
         formData.append('dish', dish);
-        formData.append('date', moment().format('LL'));
+        formData.append('editDate', moment().format('LLL'));
         
         if (selectedFile) formData.append('imgUrl', selectedFile);
 

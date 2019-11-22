@@ -51,10 +51,11 @@ router.post('/add', upload.single('imgUrl'), (req, res) => {
   const ingredients = req.body.ingredients;
   const procedures = req.body.procedures;
   const date = req.body.date;
+  const editDate = req.body.date;
   const imgUrl = url + '/public/' + req.file.filename;
 
   const newRecipe = new Recipe({
-    title, description, dish, ingredients, procedures, date, imgUrl
+    title, description, dish, ingredients, procedures, date, imgUrl, editDate
   });
 
   newRecipe.save()
@@ -91,7 +92,7 @@ router.post('/update/:id', upload.single('imgUrl'), (req, res) => {
       recipe.dish = req.body.dish;
       recipe.ingredients = req.body.ingredients;
       recipe.procedures = req.body.procedures;
-      recipe.date = req.body.date;
+      recipe.editDate = req.body.editDate;
 
       if (req.file && req.file.filename) recipe.imgUrl = url + '/public/' + req.file.filename;
 

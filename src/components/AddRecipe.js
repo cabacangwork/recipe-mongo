@@ -153,7 +153,7 @@ const AddRecipe = () => {
         formData.append('ingredients', JSON.stringify(ingredients));
         formData.append('procedures', JSON.stringify(procedures));
         formData.append('dish', dish);
-        formData.append('date', moment().format('LL'));
+        formData.append('date', moment().format('LLL'));
         formData.append('imgUrl', selectedFile);
 
         axios.post('http://localhost:5000/recipes/add', formData, {

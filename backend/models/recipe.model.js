@@ -25,12 +25,16 @@ const recipeSchema = new Schema({
   },
   date: { 
     type: String, 
-    required: true 
+    required: false 
   },
   imgUrl: {
     type: String,
     required: false,
-  }
+  },
+  editDate: { 
+    type: String, 
+    required: false 
+  },
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
