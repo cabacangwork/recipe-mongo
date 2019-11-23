@@ -1,0 +1,6 @@
+  
+{
+    "mongoURI": "mongodb+srv://recipeDB:Passw0rd3@cluster0-h1g1p.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "rl_JwtSecret"
+}
+
