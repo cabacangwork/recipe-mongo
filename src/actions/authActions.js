@@ -35,13 +35,12 @@ export const register = ({ name, email, password }) => dispatch => {
   const body = JSON.stringify({ name, email, password });
 
   axios
-    .post('/users', body, config)
+    .post('http://localhost:5000/users', body, config)
     .then(res =>
       dispatch({
         type: 'REGISTER_SUCCESS',
         payload: res.data
-      }),
-      console.log(res.data)
+      })
     )
     .catch(err => {
       dispatch(
@@ -66,7 +65,7 @@ export const login = ({ email, password }) => dispatch => {
   const body = JSON.stringify({ email, password });
 
   axios
-    .post('/auth', body, config)
+    .post('http://localhost:5000/auth', body, config)
     .then(res =>
       dispatch({
         type: 'LOGIN_SUCCESS',

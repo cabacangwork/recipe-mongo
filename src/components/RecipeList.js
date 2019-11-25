@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 
 const RecipeList = () => {
+
+    const test = useSelector(state => state.auth);
+
+    console.log(test)
 
     const [recipes, setRecipes] = useState(['']);
     const [load, setLoad] = useState(true);
