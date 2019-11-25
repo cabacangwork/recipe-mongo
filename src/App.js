@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { Provider } from 'react-redux';
 
 import Navbar from "./components/Navbar";
 import AddRecipe from "./components/AddRecipe";
@@ -12,10 +13,19 @@ import RecipeList from './components/RecipeList';
 import RecipeDetails from './components/RecipeDetails';
 import PageNotFound from './components/PageNotFound';
 import EditRecipe from './components/EditRecipe';
+import store from './store';
+
+import { loadUser } from './actions/authActions';
 
 class App extends Component{
+
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
+
   render() { 
     return (
+      <Provider store={store}>
         <Router>
           <Navbar/><br/>
           <Switch>
@@ -27,6 +37,7 @@ class App extends Component{
               <Route component={PageNotFound} />
           </Switch>
         </Router>
+      </Provider>
     )
   }
 

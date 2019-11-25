@@ -32,10 +32,9 @@ var upload = multer({
 
 // END FOR UPLOAD
 
-
 let Recipe = require('../models/recipe.model');
 
-router.route('/:filter?').get((req, res) => {
+router.get('/:filter?', auth, (req, res) => {
     const filterVal = req.query.filter;
     (filterVal === 'all')? 
       ( Recipe.find().then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))):
@@ -43,7 +42,7 @@ router.route('/:filter?').get((req, res) => {
   });
 
 
-router.post('/add', upload.single('imgUrl'), (req, res) => {
+router.post('/add', upload.single('imgUrl'), auth, (req, res) => {
     const url = req.protocol + '://' + req.get('host'); 
     const { title, description, dish, ingredients, procedures, date } = req.body;
     const editDate = req.body.date;
@@ -60,13 +59,13 @@ router.post('/add', upload.single('imgUrl'), (req, res) => {
         });
 });
 
-router.route('/view/:id').get((req, res) => {
+router.get('/view/:id', auth, (req, res) => {
   Recipe.findById(req.params.id)
     .then(recipe => res.json(recipe))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').delete((req, res) => {
+router.delete('/:id', auth, (req, res) => {
     const imgDel = 'public/' + req.body.imgPath
     var fs = require('fs');
     fs.unlink(imgDel, (err) => {
@@ -78,7 +77,7 @@ router.route('/:id').delete((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.post('/update/:id', upload.single('imgUrl'), (req, res) => {
+router.post('/update/:id', upload.single('imgUrl'), auth, (req, res) => {
   const url = req.protocol + '://' + req.get('host');
   Recipe.findById(req.params.id)
     .then(recipe => {
