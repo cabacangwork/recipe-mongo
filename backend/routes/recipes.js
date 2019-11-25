@@ -65,13 +65,13 @@ router.post('/add', upload.single('imgUrl'), (req, res) => {
     });
 });
 
-router.route('/view/:id').get((req, res) => {
+router.get('/view/:id', (req, res) => {
   Recipe.findById(req.params.id)
     .then(recipe => res.json(recipe))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').delete((req, res) => {
+router.delete('/:id', (req, res) => {
     const imgDel = 'public/' + req.body.imgPath
     var fs = require('fs');
     fs.unlink(imgDel, (err) => {
