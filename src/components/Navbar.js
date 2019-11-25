@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import logo from '../../public/styles/images/logo-white.png';
+import Register from './auth/Register';
 
 const Navbar = () => {
     return (
@@ -11,6 +12,7 @@ const Navbar = () => {
             <div className="form-inline">
                 <NavLink className="nav-link" to="/recipes/add">Add Recipe</NavLink>
                 <NavLink className="nav-link" to="/recipes">Recipe List</NavLink>
+                <Register/>
             </div>
         </nav>
     )
