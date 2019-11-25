@@ -4,12 +4,8 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 
 
-// User Model
 let User = require('../models/user.model');
 
-// @route   POST api/users
-// @desc    Register new user
-// @access  Public
 router.post('/', (req, res) => {
   const { name, email, password } = req.body;
 
@@ -34,7 +30,6 @@ router.post('/', (req, res) => {
           newUser.password = hash;
           newUser.save()
             .then(user => {
-
               jwt.sign(
                 { id: user.id },     //to know whose user is logged in
                 config.get('jwtSecret'),

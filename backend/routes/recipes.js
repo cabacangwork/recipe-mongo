@@ -1,7 +1,7 @@
 const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 const router = require('express').Router();
-
+const auth = require('../middleware/auth');
 
 // For Image Upload (using Multer)
 

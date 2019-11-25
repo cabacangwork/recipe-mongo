@@ -28,6 +28,7 @@ connection.once('open', () => {
 
 app.use('/recipes', require('./routes/recipes'));
 app.use('/users', require('./routes/users'));
+app.use('/auth', require('./routes/auth'));
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
