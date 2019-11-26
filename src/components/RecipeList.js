@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 const RecipeList = () => {
+
+    const userId = useSelector(state => state.auth.user.id);
 
     const [recipes, setRecipes] = useState(['']);
     const [load, setLoad] = useState(true);
@@ -10,7 +13,8 @@ const RecipeList = () => {
     const [filter, setFilter] = useState('all');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/recipes/list/?filter='+filter)
+        console.log(userId)
+        axios.get('http://localhost:5000/recipes/list/?filter='+filter, { params: { userId } })
             .then(response => {
                 setLoad(false);
                 if ((response.data).length === 0){
@@ -60,7 +64,7 @@ const RecipeList = () => {
     function onFilter(filterVal) {
         setFilter(filterVal);
         setLoad(true);
-        axios.get('http://localhost:5000/recipes/list/?filter='+filterVal)
+        axios.get('http://localhost:5000/recipes/list/?filter='+filterVal, { params: { userId } })
             .then(response => {
                 setLoad(false);
                 if ((response.data).length === 0){

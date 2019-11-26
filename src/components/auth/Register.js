@@ -1,16 +1,4 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  NavLink,
-  Alert
-} from 'reactstrap';
 import { connect } from 'react-redux';
 import { register } from '../../actions/authActions';
 
@@ -41,7 +29,6 @@ class Register extends Component {
     const { error, isAuthenticated } = this.props;
     const { history } = this.props;
     if (error !== prevProps.error) {
-      // Check for register error
       if (error.id === 'REGISTER_FAIL') {
         alert(error.msg.msg)
       }

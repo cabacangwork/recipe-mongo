@@ -35,6 +35,10 @@ const recipeSchema = new Schema({
     type: String, 
     required: false 
   },
+  userId: {
+    type: String,
+    required: false
+  },
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);

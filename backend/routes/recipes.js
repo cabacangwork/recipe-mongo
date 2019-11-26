@@ -37,19 +37,31 @@ let Recipe = require('../models/recipe.model');
 router.get('/list/:filter?', (req, res) => {
     const filterVal = req.query.filter;
     (filterVal === 'all')? 
-      ( Recipe.find().then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))):
-      Recipe.find({dish: req.query.filter}).then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))
+      ( Recipe.find({userId: req.query.userId}).then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))):
+      Recipe.find({userId: req.query.userId, dish: req.query.filter}).then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))
   });
 
+// router.route('/list').get((req, res) => {
+//     Recipe.find()
+//       .then(recipes => res.json(recipes))
+//       .catch(err => res.status(400).json('Error: ' + err));
+// });
+
+// router.get('/list/:filter?', (req, res) => {
+//     const filterVal = req.query.filter;
+//     (filterVal === 'all')? 
+//       ( Recipe.find().then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))):
+//       Recipe.find({dish: req.query.filter}).then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))
+//   });
 
 router.post('/add', upload.single('imgUrl'), (req, res) => {
     const url = req.protocol + '://' + req.get('host'); 
-    const { title, description, dish, ingredients, procedures, date } = req.body;
+    const { title, description, dish, ingredients, procedures, date, userId } = req.body;
     const editDate = req.body.date;
     const imgUrl = url + '/public/' + req.file.filename;
 
     const newRecipe = new Recipe({
-        title, description, dish, ingredients, procedures, date, imgUrl, editDate
+        title, description, dish, ingredients, procedures, date, imgUrl, editDate, userId
     });
 
     newRecipe.save()

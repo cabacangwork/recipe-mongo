@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-const Home = (props) => {
+const Home = () => {
 
     return (
       <div className="container home">
-        <h2 className="title">Welcome To <br/>Collection of Recipes</h2>
+        <h2 className="banner title">The<br/>Recipe App</h2>
       </div>  
     );
 

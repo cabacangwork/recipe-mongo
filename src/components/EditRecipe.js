@@ -99,13 +99,10 @@ const EditRecipe = (props) => {
     function onFileChange (event) {
         if(event.target.files && event.target.files[0]) {
             setSelectedFile(event.target.files[0]);
-            // use FileReader api constructor from HTML5
             let reader = new FileReader();
-            // listen
             reader.onloadend = () => {
                 setPreviewImg(reader.result);
             };
-            // start reading as URL
             reader.readAsDataURL(event.target.files[0]);
         }
     };

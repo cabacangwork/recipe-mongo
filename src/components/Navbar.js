@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import logo from '../../public/styles/images/logo-white.png';
-import Register from './auth/Register';
-import Logout  from './auth/Logout';
-import Login  from './auth/Login';
 import { connect } from 'react-redux';
 import {
     BrowserRouter as Router,
@@ -10,6 +7,10 @@ import {
     Route,
     NavLink
     } from "react-router-dom";  
+
+import Register from './auth/Register';
+import Logout  from './auth/Logout';
+import Login  from './auth/Login';
 import AddRecipe from "./AddRecipe";
 import Home from './Home';
 import RecipeList from './RecipeList';
@@ -17,6 +18,7 @@ import RecipeDetails from './RecipeDetails';
 import PageNotFound from './PageNotFound';
 import EditRecipe from './EditRecipe';
 import Message from './Message';
+
 
 class Navbar extends Component {
 
@@ -26,7 +28,7 @@ class Navbar extends Component {
 
         const authLinks = (
             <Fragment>
-                <div className="user-name"><h3>{user ? `Hello ${user.name}!` : ''}</h3></div>
+                <div className="user-name"><h3>{user ? `Hello ${user.name}!` : null}</h3></div>
                 <NavLink className="nav-link" to="/recipes/add">Add Recipe</NavLink>
                 <NavLink className="nav-link" to="/recipes/list">Recipe List</NavLink>
                 <Logout/>

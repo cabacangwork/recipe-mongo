@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
 import { Provider } from 'react-redux';
 
 import Navbar from "./components/Navbar";
 import store from './store';
-
 import { loadUser } from './actions/authActions';
+import Footer from './components/Footer';
 
 class App extends Component{
 
@@ -21,6 +16,7 @@ class App extends Component{
     return (
       <Provider store={store}>
         <Navbar/>
+        <Footer/>
       </Provider>
     )
   }
