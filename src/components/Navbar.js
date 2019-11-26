@@ -7,7 +7,6 @@ import {
     Route,
     NavLink
     } from "react-router-dom";  
-
 import Register from './auth/Register';
 import Logout  from './auth/Logout';
 import Login  from './auth/Login';
@@ -18,8 +17,6 @@ import RecipeDetails from './RecipeDetails';
 import PageNotFound from './PageNotFound';
 import EditRecipe from './EditRecipe';
 import Message from './Message';
-import Admin from './Admin';
-
 
 class Navbar extends Component {
 
@@ -59,10 +56,9 @@ class Navbar extends Component {
                     </div>
                 </nav>
                 <Switch>
-                    <Route exact path="/"component={Home}/>
+                    <Route exact path="/" component={Home}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/login" component={Login}/>
-                    <Route exact path="/users-list" component={Admin}/>
                     <PrivateRoute exact path="/recipes/add" component={AddRecipe}/>
                     <PrivateRoute exact path="/recipes/list" component={RecipeList} />
                     <PrivateRoute exact path="/recipes/view/:id" component={RecipeDetails}/>

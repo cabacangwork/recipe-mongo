@@ -6,16 +6,17 @@ import { logout } from '../../actions/authActions';
 
 class Logout extends Component {
 
-  onToggle = () => {
+  onToggle = (e) => {
+    e.preventDefault();
     this.props.logout();
     window.location = '/login'
   };
 
   render() {
     return (
-      <NavLink onClick={this.onToggle} className="navbar-brand" exact to="/">
+      <a onClick={this.onToggle}>
         <img className="logout" src={icon_logout} width="25" height="25" />
-      </NavLink>
+      </a>
     );
   }
 }
