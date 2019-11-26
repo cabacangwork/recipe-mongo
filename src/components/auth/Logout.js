@@ -8,11 +8,6 @@ import { logout } from '../../actions/authActions';
 
 class Logout extends Component {
 
-  static propTypes = {
-    logout: PropTypes.func.isRequired
-  };
-
-
   onToggle = () => {
     this.props.logout();
   };

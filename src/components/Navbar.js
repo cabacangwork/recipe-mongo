@@ -1,16 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { NavLink } from "react-router-dom";
 import logo from '../../public/styles/images/logo-white.png';
 import Register from './auth/Register';
 import Logout  from './auth/Logout';
 import Login  from './auth/Login';
 import { connect } from 'react-redux';
-import { NavItem } from 'reactstrap';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Redirect,
+    NavLink
     } from "react-router-dom";  
 import AddRecipe from "./AddRecipe";
 import Home from './Home';
@@ -28,11 +26,7 @@ class Navbar extends Component {
 
         const authLinks = (
             <Fragment>
-                {/* <NavItem>
-                    <span className='navbar-text mr-3'>
-                        <strong>{user ? `Welcome ${user.name}` : ''}</strong>
-                    </span>
-                </NavItem> */}
+                <div className="user-name"><h3>{user ? `Hello ${user.name}!` : ''}</h3></div>
                 <NavLink className="nav-link" to="/recipes/add">Add Recipe</NavLink>
                 <NavLink className="nav-link" to="/recipes/list">Recipe List</NavLink>
                 <Logout/>
@@ -46,9 +40,9 @@ class Navbar extends Component {
             </Fragment>
         )
 
-        const PrivateRoute = ({ component, ...options }) => {
+        const PrivateRoute = ({ component, ...props }) => {
             const finalComponent = isAuthenticated ? component : Message;
-            return <Route {...options} component={finalComponent} />;
+            return <Route {...props} component={finalComponent} />;
         };
 
         return (

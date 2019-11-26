@@ -12,9 +12,7 @@ import {
   Alert
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { register } from '../../actions/authActions';
-import { clearErrors } from '../../actions/errorActions';
 
 class Register extends Component {
 
@@ -22,13 +20,6 @@ class Register extends Component {
     name: '',
     email: '',
     password: ''
-  };
-
-  static propTypes = {
-    isAuthenticated: PropTypes.bool,
-    error: PropTypes.object.isRequired,
-    register: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired
   };
 
   onChange = e => {
@@ -91,5 +82,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { register, clearErrors }
+  { register }
 )(Register);

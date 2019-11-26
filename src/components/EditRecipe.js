@@ -17,7 +17,6 @@ const EditRecipe = (props) => {
     useEffect(() => {
         axios.get('http://localhost:5000/recipes/view/'+props.match.params.id)
             .then(response => {
-                console.log(response);
                 setId(response.data._id)
                 setTitle(response.data.title)
                 setDescription(response.data.description)
@@ -172,7 +171,6 @@ const EditRecipe = (props) => {
                 'Content-Type': 'multipart/form-data'
             }
         })
-        .then(res => console.log(res.data))
         .then( () => (
             setTimeout(() => {
                 props.history.push(`/recipes/list`);

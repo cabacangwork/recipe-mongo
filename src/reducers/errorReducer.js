@@ -12,12 +12,6 @@ const initialState = {
           status: action.payload.status,
           id: action.payload.id
         };
-      case 'CLEAR_ERRORS':
-        return {
-          msg: {},
-          status: null,
-          id: null
-        };
       default:
         return state;
     }

@@ -12,9 +12,7 @@ import {
   Alert
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
-import { clearErrors } from '../../actions/errorActions';
 
 class Login extends Component {
   state = {
@@ -23,19 +21,11 @@ class Login extends Component {
     password: ''
   };
 
-  static propTypes = {
-    isAuthenticated: PropTypes.bool,
-    error: PropTypes.object.isRequired,
-    login: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired
-  };
-
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   onSubmit = e => {
-    const { isAuthenticated } = this.props;
     e.preventDefault();
     const { email, password } = this.state;
     const user = {
@@ -85,5 +75,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { login, clearErrors }
+  { login }
 )(Login);
