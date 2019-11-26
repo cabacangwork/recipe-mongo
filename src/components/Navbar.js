@@ -18,6 +18,7 @@ import RecipeDetails from './RecipeDetails';
 import PageNotFound from './PageNotFound';
 import EditRecipe from './EditRecipe';
 import Message from './Message';
+import Admin from './Admin';
 
 
 class Navbar extends Component {
@@ -61,6 +62,7 @@ class Navbar extends Component {
                     <Route exact path="/"component={Home}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/login" component={Login}/>
+                    <Route exact path="/admin" component={Admin}/>
                     <PrivateRoute exact path="/recipes/add" component={AddRecipe}/>
                     <PrivateRoute exact path="/recipes/list" component={RecipeList} />
                     <PrivateRoute exact path="/recipes/view/:id" component={RecipeDetails}/>

@@ -140,6 +140,12 @@ nav {
     .title-link {
         text-transform: capitalize;
     }
+    &.user {
+        padding-top: 0;
+        h2 {
+            margin-bottom: 25px;
+        }
+    }
 }
 
 .header-part {
