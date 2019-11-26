@@ -1,0 +1,3 @@
+action creator localhost
+logout link, a tag, e prevent default
+home
