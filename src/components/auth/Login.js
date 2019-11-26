@@ -24,8 +24,7 @@ class Login extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    const { error, isAuthenticated } = this.props;
-    const { history } = this.props;
+    const { error, isAuthenticated, history } = this.props;
     if (isAuthenticated) {
       history.push(`/recipes/list`);
     }

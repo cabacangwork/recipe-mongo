@@ -41,18 +41,10 @@ router.get('/list/:filter?', (req, res) => {
       Recipe.find({userId: req.query.userId, dish: req.query.filter}).then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))
   });
 
-// router.route('/list').get((req, res) => {
-//     Recipe.find()
-//       .then(recipes => res.json(recipes))
-//       .catch(err => res.status(400).json('Error: ' + err));
-// });
-
-// router.get('/list/:filter?', (req, res) => {
-//     const filterVal = req.query.filter;
-//     (filterVal === 'all')? 
-//       ( Recipe.find().then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))):
-//       Recipe.find({dish: req.query.filter}).then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))
-//   });
+// Get All Recipes from All Users
+router.get('/recipe-list', (req, res) => {
+    Recipe.find().then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))
+});
 
 router.post('/add', upload.single('imgUrl'), (req, res) => {
     const url = req.protocol + '://' + req.get('host'); 

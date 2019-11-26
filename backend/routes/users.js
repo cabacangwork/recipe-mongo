@@ -51,7 +51,15 @@ router.post('/', (req, res) => {
       })
     })
 });
- 
+
+// Get All Users
+router.get('/user-list', (req, res) => {
+  User.find()
+    .select('-password')
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error: ' + err))
+});
+
 module.exports = router;
 
 
