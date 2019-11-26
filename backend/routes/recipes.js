@@ -34,7 +34,7 @@ var upload = multer({
 
 let Recipe = require('../models/recipe.model');
 
-router.get('/:filter?', (req, res) => {
+router.get('/list/:filter?', (req, res) => {
     const filterVal = req.query.filter;
     (filterVal === 'all')? 
       ( Recipe.find().then(recipes => res.json(recipes)).catch(err => res.status(400).json('Error: ' + err))):

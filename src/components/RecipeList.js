@@ -10,7 +10,7 @@ const RecipeList = () => {
     const [filter, setFilter] = useState('all');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/recipes/?filter='+filter)
+        axios.get('http://localhost:5000/recipes/list/?filter='+filter)
             .then(response => {
                 setLoad(false);
                 if ((response.data).length === 0){
@@ -60,7 +60,7 @@ const RecipeList = () => {
     function onFilter(filterVal) {
         setFilter(filterVal);
         setLoad(true);
-        axios.get('http://localhost:5000/recipes/?filter='+filterVal)
+        axios.get('http://localhost:5000/recipes/list/?filter='+filterVal)
             .then(response => {
                 setLoad(false);
                 if ((response.data).length === 0){

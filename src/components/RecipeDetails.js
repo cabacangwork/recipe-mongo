@@ -65,7 +65,7 @@ const RecipeDetails = (props) => {
                             <footer className="blockquote-footer"><cite title="Source Title">Last Update: {recipe.editDate}</cite></footer>
                         </div>
                         <div className="footer-buttons">
-                            <div className="left"><Link to="/recipes">&lt; Recipe List</Link></div>
+                            <div className="left"><Link to="/recipes/list">&lt; Recipe List</Link></div>
                             <div className="middle">
                                 <Link className="btn btn-info edit" to={`/recipes/update/${recipe._id}`}>Edit</Link>
                                 <button type="button" className="btn btn-info" onClick={(e) => onDelete(e, recipe._id)}>Delete</button>

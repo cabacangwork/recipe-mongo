@@ -20,8 +20,7 @@ class Login extends Component {
   state = {
     modal: false,
     email: '',
-    password: '',
-    msg: null
+    password: ''
   };
 
   static propTypes = {
@@ -31,92 +30,49 @@ class Login extends Component {
     clearErrors: PropTypes.func.isRequired
   };
 
-  componentDidUpdate(prevProps) {
-    const { error, isAuthenticated } = this.props;
-    if (error !== prevProps.error) {
-      // Check for register error
-      if (error.id === 'LOGIN_FAIL') {
-        this.setState({ msg: error.msg.msg });
-      } else {
-        this.setState({ msg: null });
-      }
-    }
-
-    // If authenticated, close modal
-    if (this.state.modal) {
-      if (isAuthenticated) {
-        this.toggle();
-      }
-    }
-  }
-
-  toggle = () => {
-    // Clear errors
-    this.props.clearErrors();
-    this.setState({
-      modal: !this.state.modal
-    });
-  };
-
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   onSubmit = e => {
+    const { isAuthenticated } = this.props;
     e.preventDefault();
-
     const { email, password } = this.state;
-
     const user = {
       email,
       password
     };
-
-    // Attempt to login
     this.props.login(user);
   };
 
+  componentDidUpdate(prevProps) {
+    const { error, isAuthenticated } = this.props;
+    const { history } = this.props;
+    if (isAuthenticated) {
+      history.push(`/recipes/list`);
+    }
+    if (error !== prevProps.error) {
+      if (error.id === 'LOGIN_FAIL') {
+        alert(error.msg.msg)
+      }
+    }
+  }
+
   render() {
     return (
-      <div>
-        <NavLink onClick={this.toggle} href='#'>
-          Login
-        </NavLink>
-
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Login</ModalHeader>
-          <ModalBody>
-            {this.state.msg ? (
-              <Alert color='danger'>{this.state.msg}</Alert>
-            ) : null}
-            <Form onSubmit={this.onSubmit}>
-              <FormGroup>
-                <Label for='email'>Email</Label>
-                <Input
-                  type='email'
-                  name='email'
-                  id='email'
-                  placeholder='Email'
-                  className='mb-3'
-                  onChange={this.onChange}
-                />
-
-                <Label for='password'>Password</Label>
-                <Input
-                  type='password'
-                  name='password'
-                  id='password'
-                  placeholder='Password'
-                  className='mb-3'
-                  onChange={this.onChange}
-                />
-                <Button color='dark' style={{ marginTop: '2rem' }} block>
-                  Login
-                </Button>
-              </FormGroup>
-            </Form>
-          </ModalBody>
-        </Modal>
+      <div className="login-form">
+        <h2>Login</h2>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label>Email address</label>
+            <input type="email" name='email' className="form-control" onChange={this.onChange}/>
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" name='password' className="form-control" onChange={this.onChange}/>
+          </div>
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </form>  
       </div>
     );
   }

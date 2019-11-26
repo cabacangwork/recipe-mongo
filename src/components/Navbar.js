@@ -5,9 +5,20 @@ import Register from './auth/Register';
 import Logout  from './auth/Logout';
 import Login  from './auth/Login';
 import { connect } from 'react-redux';
+import { NavItem } from 'reactstrap';
 import {
-    NavItem
-  } from 'reactstrap';
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+    } from "react-router-dom";  
+import AddRecipe from "./AddRecipe";
+import Home from './Home';
+import RecipeList from './RecipeList';
+import RecipeDetails from './RecipeDetails';
+import PageNotFound from './PageNotFound';
+import EditRecipe from './EditRecipe';
+import Message from './Message';
 
 class Navbar extends Component {
 
@@ -17,33 +28,50 @@ class Navbar extends Component {
 
         const authLinks = (
             <Fragment>
-                <NavItem>
+                {/* <NavItem>
                     <span className='navbar-text mr-3'>
                         <strong>{user ? `Welcome ${user.name}` : ''}</strong>
                     </span>
-                </NavItem>
+                </NavItem> */}
                 <NavLink className="nav-link" to="/recipes/add">Add Recipe</NavLink>
-                <NavLink className="nav-link" to="/recipes">Recipe List</NavLink>
+                <NavLink className="nav-link" to="/recipes/list">Recipe List</NavLink>
                 <Logout/>
             </Fragment>
         )
 
         const guestLinks = (
             <Fragment>
-                <Register/>
-                <Login/>
+                <NavLink className="nav-link" to="/register">Register</NavLink>
+                <NavLink className="nav-link" to="/login">Login</NavLink>
             </Fragment>
         )
 
+        const PrivateRoute = ({ component, ...options }) => {
+            const finalComponent = isAuthenticated ? component : Message;
+            return <Route {...options} component={finalComponent} />;
+        };
+
         return (
-            <nav className="navbar">
-                <NavLink className="navbar-brand" exact to="/">
-                    <img src={logo} width="43" height="45" />
-                </NavLink>
-                <div className="form-inline">
-                    { isAuthenticated? authLinks: guestLinks}
-                </div>
-            </nav>
+            <Router>
+                <nav className="navbar">
+                    <NavLink className="navbar-brand" exact to="/">
+                        <img src={logo} width="43" height="45" />
+                    </NavLink>
+                    <div className="form-inline">
+                        { isAuthenticated? authLinks: guestLinks}
+                    </div>
+                </nav>
+                <Switch>
+                    <Route exact path="/"component={Home}/>
+                    <Route exact path="/register" component={Register}/>
+                    <Route exact path="/login" component={Login}/>
+                    <PrivateRoute exact path="/recipes/add" component={AddRecipe}/>
+                    <PrivateRoute exact path="/recipes/list" component={RecipeList} />
+                    <PrivateRoute exact path="/recipes/view/:id" component={RecipeDetails}/>
+                    <PrivateRoute exact path="/recipes/update/:id" component={EditRecipe}/>
+                    <Route component={PageNotFound} />
+                </Switch>
+            </Router>
         )
     }
 }

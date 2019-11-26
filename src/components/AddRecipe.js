@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 
-const AddRecipe = () => {
+const AddRecipe = (props) => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -164,7 +164,7 @@ const AddRecipe = () => {
         .then( () => (
             setLoad(true),
             setTimeout(() => {
-                window.location = '/recipes'
+                props.history.push(`/recipes/list`);
             }, 1000)
         )); 
     }

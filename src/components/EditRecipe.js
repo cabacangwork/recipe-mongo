@@ -175,7 +175,7 @@ const EditRecipe = (props) => {
         .then(res => console.log(res.data))
         .then( () => (
             setTimeout(() => {
-                window.location = '/recipes'
+                props.history.push(`/recipes/list`);
             }, 500)
         )); 
     }

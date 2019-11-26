@@ -26,7 +26,8 @@ class App extends Component{
   render() { 
     return (
       <Provider store={store}>
-        <Router>
+        <Navbar/>
+        {/* <Router>
           <Navbar/><br/>
           <Switch>
               <Route exact path="/"component={Home}/>
@@ -36,7 +37,7 @@ class App extends Component{
               <Route exact path="/recipes/update/:id" component={EditRecipe}/>
               <Route component={PageNotFound} />
           </Switch>
-        </Router>
+        </Router> */}
       </Provider>
     )
   }
