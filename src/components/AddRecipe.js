@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const AddRecipe = (props) => {
 
-    const userId = useSelector(state => state.auth.user);
+    const userId = useSelector(state => state.auth.user._id);
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -158,7 +158,7 @@ const AddRecipe = (props) => {
         formData.append('dish', dish);
         formData.append('date', moment().format('LLL'));
         formData.append('imgUrl', selectedFile);
-        formData.append('userId', userId.id);
+        formData.append('userId', userId);
 
         axios.post('http://localhost:5000/recipes/add', formData, {
             headers: {

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const RecipeList = () => {
 
-    const userId = useSelector(state => state.auth.user.id);
+    const userId = useSelector(state => state.auth.user._id);
 
     const [recipes, setRecipes] = useState(['']);
     const [load, setLoad] = useState(true);
