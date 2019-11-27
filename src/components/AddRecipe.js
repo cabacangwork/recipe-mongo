@@ -16,6 +16,8 @@ const AddRecipe = (props) => {
     const [previewImg, setPreviewImg] = useState(); 
     const [load, setLoad] = useState(false);
 
+    console.log(userId)
+
     return (
         <div className={load? 'hide' : 'show'}>
             {load? <span className="loading">Adding Recipe...</span>: null}
