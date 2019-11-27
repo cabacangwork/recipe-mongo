@@ -13,7 +13,6 @@ const RecipeList = () => {
     const [filter, setFilter] = useState('all');
 
     useEffect(() => {
-        console.log(userId)
         axios.get('http://localhost:5000/recipes/list/?filter='+filter, { params: { userId } })
             .then(response => {
                 setLoad(false);
